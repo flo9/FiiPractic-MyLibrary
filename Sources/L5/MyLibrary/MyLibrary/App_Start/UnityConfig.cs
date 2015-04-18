@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using MyLibrary.Repository;
+using BookServiceClient;
 
 namespace MyLibrary.App_Start
 {
@@ -38,12 +38,17 @@ namespace MyLibrary.App_Start
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
-            //container.RegisterType<IBookRepository, BookRepository>();
 
-            //container.RegisterTypes(AllClasses.FromLoadedAssemblies(),
-            //   WithMappings.FromMatchingInterface,
-            //   WithName.Default
-            //   );
+           // container.RegisterType<MyLibrary.Controllers.BookController>();
+            container.RegisterInstance(new BookService(
+                "http://localhost/MyLibrary.BookService/api/"));
+
+            container.RegisterType<IBookService, BookService>();
+
+            container.RegisterTypes(AllClasses.FromLoadedAssemblies(),
+               WithMappings.FromMatchingInterface,
+               WithName.Default
+               );
         }
     }
 }

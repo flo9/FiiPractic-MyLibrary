@@ -7,45 +7,37 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MyLibrary.Models;
-using MyLibrary.Repository;
+using MyLibrary.Core.Models;
+//using MyLibrary.Repository;
 using MyLibrary.Models.Interfaces;
+using BookServiceClient;
+
 
 namespace MyLibrary.Controllers
 {
     public class BookController : Controller
     {
         
-        private IBookRepository rep;
+        private IBookService bookService;
 
-        public BookController(IBookRepository rep)
+        public BookController(IBookService service)
         {
-            this.rep = rep;
+            this.bookService = service;
+                //new BookServiceClient.BookServiceClient("http://localhost/MyLibrary.BookService/api/");
         }
 
         // GET: /Book/
         public ActionResult Index(string bookGenre,string filterByTitle)
         {
-            var books = rep.GetList<Book>().ToList();
-            var GenreList = new List<string>();
-            //var GenreQuery = from g in rep.DataContext.Books
-            //                 orderby g.Genre
-            //                 select g.Genre;
 
-           // GenreList.AddRange(GenreQuery.Distinct());
-            GenreList.Add(
-                "1");
-            ViewBag.BookGenre = new SelectList(GenreList);
-            
-            if (!String.IsNullOrWhiteSpace(filterByTitle))
-            {
-                books = rep.GetBooksByTitle(filterByTitle);
-            }
+            var books = bookService.List( bookGenre, filterByTitle);
 
-            //if (!String.IsNullOrEmpty(bookGenre))
-            //{
-            //    books = books.Where(x => x.Genre == bookGenre).ToList();
-            //}
+           var genreList = bookService.Genres();
+           if (genreList == null)
+               genreList = new List<string>();
+           ViewBag.BookGenre = new SelectList(genreList);
+
+         
             return View(books);
         }
 
@@ -56,7 +48,7 @@ namespace MyLibrary.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = rep.FindById(id);
+            Book book = bookService.FindBookById(id);
             if (book == null)
             {
                 return HttpNotFound();
@@ -79,8 +71,7 @@ namespace MyLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-             //   rep.DataContext.Books.Add(book);
-              //  rep.DataContext.SaveChanges();
+                bookService.Add(book);
                 return RedirectToAction("Index");
             }
 
@@ -94,7 +85,7 @@ namespace MyLibrary.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = rep.FindById(id);
+            Book book = bookService.FindBookById(id);
             if (book == null)
             {
                 return HttpNotFound();
@@ -111,8 +102,7 @@ namespace MyLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                //rep.DataContext.Entry(book).State = EntityState.Modified;
-                //rep.DataContext.SaveChanges();
+                bookService.Update(book);
                 return RedirectToAction("Index");
             }
             return View(book);
@@ -125,7 +115,7 @@ namespace MyLibrary.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = rep.FindById(id);
+            Book book = bookService.FindBookById(id);
             if (book == null)
             {
                 return HttpNotFound();
@@ -138,9 +128,8 @@ namespace MyLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //Book book = rep.DataContext.Books.Find(id);
-            //rep.DataContext.Books.Remove(book);
-            //rep.DataContext.SaveChanges();
+           
+            bookService.Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -148,7 +137,7 @@ namespace MyLibrary.Controllers
         {
             if (disposing)
             {
-                rep.Dispose();
+               // bookService.Dispose();
             }
             base.Dispose(disposing);
         }

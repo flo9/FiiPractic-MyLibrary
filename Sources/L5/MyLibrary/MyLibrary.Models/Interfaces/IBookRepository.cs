@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyLibrary.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,7 +12,7 @@ namespace MyLibrary.Models.Interfaces
     {
         List<Book> GetBooksByTitle(string title);
         Book FindById(int? id);
-        //BookContext DataContext { get; }
+      //  BookContext DataContext { get; }
         bool AllowSerialization { get; set; }
         T Get<T>(Expression<Func<T, bool>> predicate) where T : class;
         IQueryable<T> GetList<T>(Expression<Func<T, bool>> predicate) where T : class;
@@ -24,6 +25,9 @@ namespace MyLibrary.Models.Interfaces
         OperationStatus Save<T>(T entity) where T : class;
         OperationStatus Update<T>(T entity, params string[] propsToUpdate) where T : class;
         OperationStatus ExecuteStoreCommand(string cmdText, params object[] parameters);
+
+        IEnumerable<string> GenreList();
+
         void Dispose();
     }
 }

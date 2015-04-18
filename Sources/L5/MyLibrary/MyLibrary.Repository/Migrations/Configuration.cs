@@ -10,8 +10,6 @@ namespace MyLibrary.Repository.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "MyLibrary.Repository.BookContext";
         }
 
         protected override void Seed(MyLibrary.Repository.BookContext context)

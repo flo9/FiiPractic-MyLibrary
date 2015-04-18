@@ -5,11 +5,13 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLibrary", "MyLibrary\MyLibrary.csproj", "{B5502ABA-5CB6-476E-9D6B-AA43E2F77260}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLibrary.Models", "MyLibrary.Models\MyLibrary.Models.csproj", "{5AA7C67A-7AE4-4B9D-896A-D8D599864299}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLibrary.Core", "MyLibrary.Models\MyLibrary.Core.csproj", "{5AA7C67A-7AE4-4B9D-896A-D8D599864299}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLibrary.Repository", "MyLibrary.Repository\MyLibrary.Repository.csproj", "{24093CD7-3D58-420A-BD88-C712A0FE8FB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLibrary.BookService", "MyLibrary.BookService\MyLibrary.BookService.csproj", "{17F23460-784E-4CDD-8E52-01122B894CB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookServiceClient", "BookServiceClient\BookServiceClient.csproj", "{D7F36B7D-ED28-4A55-A8F5-B59613154BAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{17F23460-784E-4CDD-8E52-01122B894CB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17F23460-784E-4CDD-8E52-01122B894CB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17F23460-784E-4CDD-8E52-01122B894CB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7F36B7D-ED28-4A55-A8F5-B59613154BAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7F36B7D-ED28-4A55-A8F5-B59613154BAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7F36B7D-ED28-4A55-A8F5-B59613154BAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7F36B7D-ED28-4A55-A8F5-B59613154BAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

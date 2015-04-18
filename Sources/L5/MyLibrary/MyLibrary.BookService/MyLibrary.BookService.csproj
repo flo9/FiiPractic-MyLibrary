@@ -15,7 +15,7 @@
     <AssemblyName>MyLibrary.BookService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -190,9 +190,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyLibrary.Models\MyLibrary.Models.csproj">
+    <ProjectReference Include="..\MyLibrary.Models\MyLibrary.Core.csproj">
       <Project>{5aa7c67a-7ae4-4b9d-896a-d8d599864299}</Project>
-      <Name>MyLibrary.Models</Name>
+      <Name>MyLibrary.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyLibrary.Repository\MyLibrary.Repository.csproj">
       <Project>{24093cd7-3d58-420a-bd88-c712a0fe8fb6}</Project>
@@ -224,7 +224,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63526</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63526/</IISUrl>
+          <IISUrl>http://localhost/MyLibrary.BookService</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

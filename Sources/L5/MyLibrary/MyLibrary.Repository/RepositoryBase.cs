@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -157,24 +158,22 @@ namespace MyLibrary.Repository
             return opStatus;
         }
 
-        //public virtual OperationStatus Delete<T>(T entity) where T : class
-        //{
-        //    OperationStatus opStatus = new OperationStatus { Status = true };
+        public virtual OperationStatus Delete<T>(T entity) where T : class
+        {
+            OperationStatus opStatus = new OperationStatus { Status = true };
 
-        //    try
-        //    {
-        //        ObjectSet<T> objectSet = DataContext.CreateObjectSet<T>();
-        //        objectSet.Attach(entity);
-        //        objectSet.DeleteObject(entity);
-        //        opStatus.Status = DataContext.SaveChanges() > 0;
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //        return OperationStatus.CreateFromException("Error deleting " + typeof(T), exp);
-        //    }
+            try
+            {
+                DataContext.Set<T>().Remove(entity);
+                opStatus.Status = DataContext.SaveChanges() > 0;
+            }
+            catch (Exception exp)
+            {
+                return OperationStatus.CreateFromException("Error deleting " + typeof(T), exp);
+            }
 
-        //    return opStatus;
-        //}
+            return opStatus;
+        }
 
         public void Dispose()
         {

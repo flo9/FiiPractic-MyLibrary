@@ -1,4 +1,6 @@
-﻿using MyLibrary.Models;
+﻿using MyLibrary.Core.Models;
+using MyLibrary.Core.Filters;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +16,19 @@ namespace MyLibrary.BookService.Controllers
     {
         BookRepository rep = new BookRepository();
 
-        // GET api/values
-        public IEnumerable<Book> Get()
+        // GET api/book
+        public IEnumerable<Book> Get([FromUri] string title = "", [FromUri] string genre = "")
         {
-            return rep.GetList<Book>();
+            return rep.GetList<Book>().WithTitle(title).WithGenre(genre);
         }
 
-        // GET api/values/5
+        // GET api/book/5
         public Book Get(int id)
         {
             return rep.FindById(id);
         }
 
-        // POST api/values
+        // POST api/book
         public HttpResponseMessage Post([FromBody]Book book)
         {
 
@@ -36,7 +38,7 @@ namespace MyLibrary.BookService.Controllers
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
-        // PUT api/values/5
+        // PUT api/book/5
         public HttpResponseMessage Put(int? id, [FromBody]Book value)
         {
             if (id == null)
@@ -60,9 +62,24 @@ namespace MyLibrary.BookService.Controllers
             return new HttpResponseMessage(HttpStatusCode.Accepted);;
         }
 
-        // DELETE api/values/5
+        // DELETE api/book/5
         public void Delete(int id)
         {
+            var book = rep.FindById(id);
+
+            if (book != null)
+            {
+                rep.Delete<Book>(book);
+            }
+        }
+        
+            
+        //GET api/book/genres
+        [Route("api/Book/Genres")]
+        [HttpGet]
+        public IEnumerable<string> Genres()
+        {
+            return rep.GenreList();
         }
     }
 }

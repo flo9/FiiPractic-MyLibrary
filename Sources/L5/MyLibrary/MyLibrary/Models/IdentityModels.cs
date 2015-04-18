@@ -13,5 +13,6 @@ namespace MyLibrary.Models
             : base("DefaultConnection")
         {
         }
+
     }
 }
